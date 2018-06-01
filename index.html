@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DropYourGuts</title>
+	<link rel="stylesheet" href="style.css" >
+	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
+	<script>
+	$( document ).ready(function() {
+	var bool= true;
+	var timer;
+	var steps=0;
+	var count;
+	// document.getElementById("bmis").style.display = "none";
+	$('.message a').click(function(){
+
+		if (bool) {
+			bool=false;
+			document.getElementById("log").style.display = "block";
+			document.getElementById("sin").style.display = "none";
+		}
+		else {
+			bool=true;
+				document.getElementById("log").style.display = "none";
+				document.getElementById("sin").style.display = "block";
+			}
+	});
+
+$('#inButton').click(function(){
+	var luser=document.getElementById("usr").value;
+	var lpassw=document.getElementById("pass").value;
+	var c1 = luser.toUpperCase();
+  var c2 = lpassw.toUpperCase();
+
+	if (c1=="GARRY"&&c2=="HISPASSWORD") {
+		document.getElementById("log").style.display = "none";
+		document.getElementById("sin").style.display = "none";
+		document.getElementById("nav").style.display = "block";
+	} else {
+		alert("User Does Not Exists");
+	}
+
+
+});
+$('#upButton').click(function(){
+	var user=document.getElementById("usr1").value;
+	var passw=document.getElementById("usr2").value;
+	var hei=document.getElementById("usr3").value;
+	var wei=document.getElementById("usr4").value;
+	var post=document.getElementById("usr5").value;
+
+	$.post("data.php",
+						 {
+							 id1: user,
+						   id2: passw,
+							 id3: hei,
+						   id4: wei,
+							 id5: post,
+						  } );
+
+	bool=true;
+		document.getElementById("log").style.display = "none";
+		document.getElementById("sin").style.display = "block";
+});
+
+$('#bmi').click(function(){
+
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("bmis").style.display = "block";
+	document.getElementById("heading").innerHTML="Your Profile";
+});
+$('#stat').click(function(){
+
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("sta").style.display = "block";
+	document.getElementById("heading").innerHTML="You Stats";
+});
+$('#activ').click(function(){
+
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("acti").style.display = "block";
+	document.getElementById("heading").innerHTML="Your Recent Activities";
+
+
+
+
+
+
+
+	// var directionsService = new google.maps.DirectionsService();
+	//
+	// var request = {
+	//   origin      : 'Melbourne VIC', // a city, full address, landmark etc
+	//   destination : 'Sydney NSW',
+	//   travelMode  : google.maps.DirectionsTravelMode.DRIVING
+	// };
+	//
+	// directionsService.route(request, function(response, status) {
+	//   if ( status == google.maps.DirectionsStatus.OK ) {
+	//     var alt=( response.routes[0].legs[0].distance.value ); // the distance in metres
+	// 		document.getElementById("ah").innerHTML=alt;
+	// 	}
+	//   else {
+	//     // oops, there's no route between these two locations
+	//     // every time this happens, a kitten dies
+	//     // so please, ensure your address is formatted properly
+	//   }
+	// });
+
+
+});
+
+
+
+
+$('#abt1').click(function(){
+	 timer=setInterval(function() {
+								stepCount();
+							}, 1000);
+
+});
+
+$('#abt2').click(function(){
+	clearInterval(timer);
+
+	var string= "Mate you have walked "+steps+" steps today";
+		document.getElementById("ah").innerHTML=string;
+});
+
+$('#tip1').click(function(){
+
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("tip").style.display = "block";
+	document.getElementById("heading").innerHTML="Some Tips For You";
+});
+$('#hom1').click(function(){
+
+	document.getElementById("log").style.display = "none";
+	document.getElementById("sin").style.display = "none";
+	document.getElementById("nav").style.display = "block";
+	document.getElementById("bmis").style.display = "none";
+	document.getElementById("heading").innerHTML="Drop Your Gut";
+});
+$('#hom2').click(function(){
+
+	document.getElementById("log").style.display = "none";
+	document.getElementById("sin").style.display = "none";
+	document.getElementById("nav").style.display = "block";
+	document.getElementById("sta").style.display = "none";
+	document.getElementById("heading").innerHTML="Drop Your Gut";
+});
+$('#hom3').click(function(){
+
+	document.getElementById("log").style.display = "none";
+	document.getElementById("sin").style.display = "none";
+	document.getElementById("nav").style.display = "block";
+	document.getElementById("acti").style.display = "none";
+	document.getElementById("heading").innerHTML="Drop Your Gut";
+});
+$('#hom4').click(function(){
+
+	document.getElementById("log").style.display = "none";
+	document.getElementById("sin").style.display = "none";
+	document.getElementById("nav").style.display = "block";
+	document.getElementById("tip").style.display = "none";
+	document.getElementById("heading").innerHTML="Drop Your Gut";
+});
+$('#logout').click(function(){
+
+	document.getElementById("log").style.display = "none";
+	document.getElementById("sin").style.display = "block";
+	document.getElementById("nav").style.display = "none";
+	document.getElementById("tip").style.display = "none";
+	document.getElementById("heading").innerHTML="Drop Your Gut";
+});
+
+function stepCount() {
+
+		steps++;
+		document.getElementById("ah").innerHTML= steps;
+
+}
+
+
+	});
+	</script>
+</head>
+<body>
+	<div class="fullScreen">
+	<div class="loginpage">
+<h1 id="heading" class="h1">Drop Your Gut</h1>
+<!-- following code is for Sign up form -->
+		<div id="log" class="form">
+			<form  class="sign-up">
+				<input id="usr1" type="text" placeholder="username"/>
+				<input id="usr2" type="password" placeholder="password"/>
+				<input type="password" placeholder="confirm password"/>
+				<input id="usr3" type="text" placeholder="height"/>
+				<input id="usr4" type="text" placeholder="weight"/>
+				<input id="usr5" type="text" placeholder="Postcode"/>
+			</form>
+			<button id="upButton">Sign Up</button>
+			<p class="message">Already Registered ?<a href="#">Log-In</a></p>
+		</div>
+		<!-- folloing code is for sign in page -->
+		<div  id="sin" class="form">
+			<form class="login-form">
+				<input id="usr" type="text" placeholder="username"/>
+				<input  id="pass" type="password" placeholder="password"/>
+			</form>
+			<button id="inButton">Sign In</button>
+			<p class="message">Not Registered ?<a href="#">Register</a></p>
+			<p class="message">Disclaimer: If you have any serious health problem consult your Doctor before using this App!</P>
+		</div>
+
+		<!-- following code is for tile page -->
+		<div id="nav" class="navigation">
+			<div width=100% align=right><button id="logout"class="outBtn">Logout</button></div>
+			<button id="stat"class="tile1">STATS</button>
+			<button id="bmi" class="tile2">PROFILE</button>
+			<button id="activ"class="tile1">WORKOUT</button>
+			<button id="tip1"class="tile2">TIPS</button>
+		</div>
+
+		<!-- Following code is for BMI tile -->
+		<div id="bmis" class="navigation">
+		<button id="hom1" class="tile5">Home</button>
+		<table class="table"align =center border="1" >
+		<thead>
+	    <tr>
+				<th>Height</th>
+	      <th>Weight</th>
+				<th>Present BMI</th>
+	      <th>Healthy BMI</th>
+
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <tr>
+				<td>170 cm</td>
+	      <td>85 kg</td>
+	      <td>29.4</td>
+	      <td>22.1</td>
+	    </tr>
+		</tr>
+	</tbody>
+</table>
+		<h3 class="h3">Hi! mate your BMI is 29.4 it means your beer belly is bit heavy</h3>
+		</div>
+
+		<!-- Following code is for ststistics -->
+		<div id="sta" class="navigation">
+		<button id="hom2" class="tile5">Home</button>
+		<table class="table"align =center border="1" >
+  <thead>
+    <tr>
+			<th>Day</th>
+      <th>Steps walked</th>
+			<th>Time Taken</th>
+      <th>calories burnt</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <tr>
+			<td>Monday</td>
+      <td>1200</td>
+      <td>20 min</td>
+      <td>100</td>
+    </tr>
+	</tr>
+	<tr>
+		<tr>
+		<td>Tuesday</td>
+		<td>2000</td>
+		<td>28 min</td>
+		<td>120</td>
+	</tr>
+</tr>
+<tr>
+	<tr>
+	<td>Wednesday</td>
+	<td>1800</td>
+	<td>16 min</td>
+	<td>110</td>
+</tr>
+</tr>
+<tr>
+	<tr>
+	<td>Thursday</td>
+	<td>2500</td>
+	<td>30 min</td>
+	<td>150</td>
+</tr>
+</tr>
+<tr>
+	<tr>
+	<td>Friday</td>
+	<td>1900</td>
+	<td>16 min</td>
+	<td>115</td>
+
+</tr>
+</tr>
+<tr>
+	<tr>
+	<td>Saturday</td>
+	<td>3000</td>
+	<td>30min</td>
+	<td>180</td>
+</tr>
+</tr>
+<tr>
+	<tr>
+	<td>Sunday</td>
+	<td>2500</td>
+	<td>25 min</td>
+	<td>135</td>
+</tr>
+</tr>
+  </tbody>
+</table>
+		<h3 class="h3">Mate today you have walked 2500 steps and bunt 135 calories, good on you!</h3>
+		</div>
+
+		<!-- Following code is for Workout -->
+		<div id="acti" class="navigation">
+		<button id="hom3" class="tile5">Home</button>
+		<h3 id="ah"class="h3">0</h3>
+		<button id="abt1" class="btn1">Start</button>
+		<button id="abt2" class="btn2">stop</button>
+		</div>
+
+		<!-- Following code is for tips tile -->
+		<div id="tip" class="navigation">
+		<button id="hom4" class="tile5">Home</button>
+		<table class="table"align =center border="1" >
+	<thead>
+		<tr>
+			<th>Tips</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Go for Morning Walk. ..</td></tr>
+		<tr><td>Decrease/eliminate processed carbs. ..</td></tr>
+		<tr><td>Eat more veggies. </td></tr>
+		<tr><td>Eat more fruit. ..</td></tr>
+		<tr><td>Lift weights..</td></tr>
+	</tbody>
+</table>
+<h3 class="h3">Do you really listen to Tips?</h3>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
